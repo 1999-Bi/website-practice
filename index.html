@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Queenivy's fragrances</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: #f09204; color: white; }
+    nav { background: black; padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
+    nav a { color: white; text-decoration: none; margin: 0 1rem; font-weight: bold; }
+    header, footer { background:f0; padding: 2rem; text-align: center; }
+    .hero {background:url("/images/WhatsApp\ Image\ 2025-05-01\ at\ 4.03.25\ PM.jpeg") center/cover no-repeat; color: rgb(14, 14, 21); text-align: center; padding: 12rem 2rem; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; padding: 2rem; }
+    .product-card { border: 1px solid #eee; border-radius: 8px; padding: 1rem; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .product-card img { max-width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
+    .price { font-weight: bold; margin: 0.5rem 0; }
+    .btn { background:black ; color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 5px; cursor: pointer; }
+    .cart, .checkout-form { padding: 2rem; border-top: 1px solid #eee; }
+    .cart ul { list-style: none; padding: 0; }
+    .cart li { margin: 0.5rem 0; }
+    .checkout-form input, .checkout-form button { width: 100%; padding: 0.8rem; margin: 0.5rem 0; }
+    .checkout-form button { background: #4CAF50; color: white; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div><a href="index.html">Queenivy's fragrances</a></div>
+  <div>
+    <a href="login.html">Login</a>
+    <a href="register.html">Register</a>
+  </div>
+</nav>
+
+<header>
+  <h1>Queenivy's Fragrances</h1>
+  <p>Discover the finest fragrances</p>
+</header>
+
+<section class="hero">
+  <h2>Luxury Scents for Every Mood</h2>
+</section>
+
+<section class="products">
+  <div class="product-card">
+    <img src="images/WhatsApp Image 2025-05-01 at 4.03.32 PM(1).jpeg" alt="GENIE'SECRET" />
+    <h3>GENIE'S SECRET</h3>
+    <p>BOMBSHELL</p>
+    <div class="price">&#8358 4,500</div>
+    <button class="btn" onclick="addToCart('GENIESECRET', 4500)">Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="images/WhatsApp Image 2025-05-01 at 4.03.32 PM.jpeg" alt="THE FIRE" />
+    <h3>THE FIRE
+    </h3>
+    <p>Extrait De Parfum</p>
+    <div class="price">&#8358 40,000</div>
+    <button class="btn" onclick="addToCart('THE FIRE', 40,000)">Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="images/WhatsApp Image 2025-05-01 at 4.03.31 PM.jpeg" alt="Amber Drift" />
+    <h3>PHILOS</h3>
+    <p>Warm and spicy tones</p>
+    <div class="price">&#8358 21,000</div>
+    <button class="btn" onclick="addToCart('PHILOS', 21,000)">Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="images/WhatsApp Image 2025-05-01 at 4.03.24 PM.jpeg" alt="KHAMRAH" />
+    <h3>KHAMRAH</h3>
+    <p>Gourmand fragrance</p>
+    <div class="price">&#8358 15,000</div>
+    <button class="btn" onclick="addToCart('KHAMRAH', 15,000)">Add to Cart</button>
+  </div>
+  <div class="product-card">
+      <img src="images/WhatsApp Image 2025-05-01 at 4.03.23 PM(1).jpeg" alt="AL DARGAM" />
+      <h3>AL DARGAM</h3>
+      <p>Affordable Luxury</p>
+      <div class="price">&#8358 6,000</div>
+      <button class="btn" onclick="addToCart('AL DARGAM', 6,000)">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="images/WhatsApp Image 2025-05-01 at 4.03.23 PM.jpeg" alt="ALPHA NICOLE" />
+      <h3>ALPHA NICOLE</h3>
+      <p>Alpha series be banging so hard</p>
+      <div class="price">&#8358 6,000</div>
+      <button class="btn" onclick="addToCart('ALPHA NICOLE', 6,000)">Add to Cart</button>
+    </div>
+   
+</section>
+
+<section class="cart">
+  <h2>Your Cart</h2>
+  <ul id="cart-list"></ul>
+  <p><strong>Total:</strong> &#8358<span id="total">0.00</span></p>
+</section>
+
+<section class="checkout-form">
+  <h2>Checkout</h2>
+  <input type="text" placeholder="Full Name" required />
+  <input type="email" placeholder="Email" required />
+  <input type="text" placeholder="Shipping Address" required />
+  <input type="text" placeholder="Card Number" required />
+  <button onclick="alert('Order placed!')">Place Order</button>
+</section>
+
+<footer>
+  &copy; 2025 Queenivy's Fragrances. All rights reserved.
+</footer>
+
+<script>
+  let cart = [];
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    updateCart();
+  }
+
+  function updateCart() {
+    const list = document.getElementById('cart-list');
+    const totalSpan = document.getElementById('total');
+    list.innerHTML = '';
+    let total = 0;
+    cart.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${item.name} -  ${item.price.toFixed(2)}`;
+      list.appendChild(li);
+      total += item.price;
+    });
+    totalSpan.textContent = total.toFixed(2);
+  }
+</script>
+
+</body>
+</html>
+
+
